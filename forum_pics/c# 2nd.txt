@@ -1,0 +1,91 @@
+<html>
+<head>
+<Script language=”c#” runat=”Server”>
+void Calculate(Object sender,EventArgs e)
+{
+ if (Store.SelectedIndex > -1){
+ int i = Store.SelectedIndex;
+Cost.Text = “You have chosen “ + Store.SelectedItem.Value + “ and
+its cost is Rs.”;
+ if (i==0)
+ Cost.Text += “30”;
+ else if (i==1)
+ Cost.Text += “32”;
+ else if (i == 2)
+ Cost.Text += “28”;
+ else
+ Cost.Text += “26”;
+ }
+}
+void display(Object sender, EventArgs e)
+{
+ int i = Store.SelectedIndex;
+ if (i==0)
+ {
+ Img.ImageUrl = “Cola.gif”;
+Img.AlternateText = “Cola”;
+ }
+ else if (i==1)
+ {
+ Img.ImageUrl = “Red_pop.gif”;
+ Img.AlternateText = “Red Pop”;
+ }
+ else if (i == 2)
+ {
+ Img.ImageUrl = “Lime.gif”;
+ Img.AlternateText = “Lime”;
+ }
+ else
+ {
+ Img.ImageUrl = “Purple_Rain.gif”;
+ Img.AlternateText = “Purple Rain”;
+ }
+}
+void add(Object sender, EventArgs e)
+{
+ int tot=0;
+ int qty = System.Int32.Parse(qtyText.Text);
+ switch(Store.SelectedIndex)
+ {
+ case 0: tot = qty * 30;
+ break;
+ case 1: tot = qty * 32;
+ break;
+ case 2: tot = qty * 28;
+ break;
+ case 3: tot = qty * 26;
+ break;
+ }
+ total.Text = “You have to pay a total of Rs.” + tot;
+}
+</Script>
+</head>
+<body>
+<form runat=”server”>
+<asp:label id = “label1” Text=”Following are the items available with us”
+Font-Name=”Verdana” Font-Size=”18pt”
+
+runat=”server” />
+<br><br>
+<asp:listbox id=”Store” AutoPostBack=”True” width=”200" runat=”server”
+onSelectedIndexChanged=”display”>
+ <asp:listitem>Cola</asp:listitem>
+ <asp:listitem>Red Pop</asp:listitem>
+ <asp:listitem>Lime</asp:listitem>
+ <asp:listitem>Purple Rain</asp:listitem>
+</asp:listbox>
+<asp:Image ID=”Img” ImageUrl=”” AlternateText=”” runat=”server” />
+<br><br>
+<asp:button id=”Find” text=”Find Cost” OnClick=”Calculate” runat=”server”/>
+<br><br>
+<asp:label id=”Cost” text=”0" width=350 runat=”server”/>
+<br><br>
+<asp:label id=”qtyLabel” text=”Enter the quantity:” runat=”server”/> 
+<asp:textbox id=”qtyText” Width = 30 text=”1" runat=”server”/>
+<br><br>
+<asp:button id=”Buy” text=”Buy this” OnClick=”add” runat=”server”/>
+<br><br>
+<asp:label id=”total” text=”” runat=”server”/>
+</form>
+</body>
+</html>
